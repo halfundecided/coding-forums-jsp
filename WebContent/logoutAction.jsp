@@ -4,9 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width", initial-scale="1">
 <title>Coding Forums | halfundecided</title>
 </head>
 <body>
-	<script> location.href = 'main.jsp' </script>
+	<%
+		session.invalidate();
+	%>
+	<script>
+		location.href = 'main.jsp';
+	</script>
 </body>
-</html>
+</html> 

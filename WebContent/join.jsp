@@ -25,8 +25,8 @@
 					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false"> Get-In </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item active" href="login.jsp">Log In</a> 
-						<a class="dropdown-item" href="join.jsp">Sign Up</a>
+						<a class="dropdown-item" href="login.jsp">Log In</a> 
+						<a class="dropdown-item active" href="join.jsp">Sign Up</a>
 					</div>
 				</li>
 			</ul>
@@ -37,15 +37,21 @@
 		<div class="col-lg-4"></div>
 		<div class="col-lg-4">
 			<div class="jumbotron" style="padding-top: 30px; margin-top: 50px;">
-				<form method="post" action="loginAction.jsp">
-					<h3 style="text-align: center;"> Log In </h3>
+				<form method="post" action="joinAction.jsp">
+					<h3 style="text-align: center;"> Sign Up </h3>
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="ID" name="userID" maxlength="20">
 					</div>
 					<div class="form-group">
 						<input type="password" class="form-control" placeholder="Password" name="userPassword" maxlength="20">
 					</div>
-					<input type="submit" class="btn btn-primary form-control btn-dark" value="LOG IN">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Name" name="userName" maxlength="20">
+					</div>
+					<div class="form-group">
+						<input type="email" class="form-control" placeholder="Email" name="userEmail" maxlength="50">
+					</div>
+					<input type="submit" class="btn btn-primary form-control btn-dark" value="Sign Up">
 				</form>
 			</div>
 		</div>

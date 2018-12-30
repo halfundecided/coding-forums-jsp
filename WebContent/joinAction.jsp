@@ -6,6 +6,8 @@
 <jsp:useBean id="user" class="user.User" scope="page" />
 <jsp:setProperty name="user" property="userID" />
 <jsp:setProperty name="user" property="userPassword" />
+<jsp:setProperty name="user" property="userName" />
+<jsp:setProperty name="user" property="userEmail" />
 
 <!DOCTYPE html>
 <html>
@@ -17,7 +19,7 @@
 <body>
 	<%
 		String userID = null;
-		if(session.getAttribute("userID") != null) {
+		if (session.getAttribute("userID") != null) {
 			userID = (String) session.getAttribute("userID");
 		}
 		if (userID != null) {
@@ -27,36 +29,29 @@
 			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
 		}
-		
-		UserDAO userDAO = new UserDAO() ;
-		int result = userDAO.login(user.getUserID(), user.getUserPassword());
-		
-		// when user successfully logined
-		if (result == 1) {
-			session.setAttribute("userID", user.getUserID());
+		if (user.getUserID() == null || user.getUserPassword() == null || user.getUserName() == null
+				|| user.getUserEmail() == null) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href = 'main.jsp'");
-			script.println("</script>");
-		// no successful 
-		} else if (result == -1) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('This ID does not exist')");
-			script.println("history.back()");
-			script.println("</script>");			
-		} else if (result == 0) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('Wrong password!')");
-			script.println("history.back()");
-			script.println("</script>");			
-		} else if (result == -2) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('Database error')");
+			script.println("alert('Insert all informations')");
 			script.println("history.back()");
 			script.println("</script>");
+		} else {
+			UserDAO userDAO = new UserDAO();
+			int result = userDAO.join(user);
+			if (result == -1) {
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('This ID is already existing')");
+				script.println("history.back()");
+				script.println("</script>");
+			} else {
+				session.setAttribute("userID", user.getUserID());
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("location.href = 'main.jsp'");
+				script.println("</script>");
+			}
 		}
 	%>
 </body>
