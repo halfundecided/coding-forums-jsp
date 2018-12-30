@@ -17,7 +17,7 @@
 		}
 	%>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">Coding Forums</a>
+		<a class="navbar-brand" href="main.jsp">Coding Forums</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,7 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item active"><a class="nav-link" href="main.jsp">Main<span class="sr-only">(current)</span></a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Forums</a></li>
+				<li class="nav-item"><a class="nav-link" href="forum-main.jsp">Forums</a></li>
 				<!-- Not logged in --> 
 				<%
 					if(userID == null) {
@@ -61,7 +61,6 @@
 			</ul>
 		</div>
 	</nav>
-	
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>

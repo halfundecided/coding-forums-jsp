@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,12 @@
 <title>Coding Forums | halfundecided</title>
 </head>
 <body>
+	<%
+		String userID = null;
+		if(session.getAttribute("userID") != null) {
+			userID = (String) session.getAttribute("userID");
+		}
+	%>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="main.jsp">Coding Forums</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -19,38 +26,69 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" href="main.jsp">Main<span class="sr-only">(current)</span></a></li>
-				<li class="nav-item"><a class="nav-link" href="forum-main.jsp">Forums</a></li>
+				<li class="nav-item active"><a class="nav-link" href="forum-main.jsp">Forums</a></li>
+				<!-- Not logged in --> 
+				<%
+					if(userID == null) {
+				%>
+				
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#"
 					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false"> Get-In </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item active" href="login.jsp">Log In</a> 
+						<a class="dropdown-item" href="login.jsp">Log In</a> 
 						<a class="dropdown-item" href="join.jsp">Sign Up</a>
 					</div>
 				</li>
+				<!-- When you are already logged in -->
+				<%
+					} else {
+				%>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#"
+					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false">Account</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="logoutAction.jsp">Log Out</a> 
+					</div>
+				</li>
+				<%
+					}
+				%>
+				
+			
 			</ul>
 		</div>
 	</nav>
 	
+	<!-- dash board -->
 	<div class="container">
-		<div class="col-lg-4"></div>
-		<div class="col-lg-4">
-			<div class="jumbotron" style="padding-top: 30px; margin-top: 50px;">
-				<form method="post" action="loginAction.jsp">
-					<h3 style="text-align: center;"> Log In </h3>
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="ID" name="userID" maxlength="20">
-					</div>
-					<div class="form-group">
-						<input type="password" class="form-control" placeholder="Password" name="userPassword" maxlength="20">
-					</div>
-					<input type="submit" class="btn btn-primary form-control btn-dark" value="LOG IN">
-				</form>
-			</div>
+		<div class="row">
+			<table class="table table-hover style="">
+				<thead>
+					<tr>
+						<th scope="col" style="">#</th>
+						<th scope="col" style="">Title</th>
+						<th scope="col" style="">Author</th>
+						<th scope="col" style="">Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Test post</td>
+						<td>halfundecided</td>
+						<td>2019-01-02</td>
+					</tr>
+				</tbody>
+			</table>
+			<a href="write-post.jsp" class="btn btn-outline-secondary">Write</a>
+			
 		</div>
 	</div>
-
+	
+	
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
