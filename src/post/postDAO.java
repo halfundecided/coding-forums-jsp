@@ -108,5 +108,27 @@ public class postDAO {
 		}
 		return false;		
 	}
+	
+	public post getPost(int postID) {
+		String SQL = "SELECT * FROM posts WHERE postID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, postID);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				post post = new post();
+				post.setPostID(rs.getInt(1));
+				post.setPostTitle(rs.getString(2));
+				post.setUserID(rs.getString(3));
+				post.setPostDate(rs.getString(4));
+				post.setPostContent(rs.getString(5));
+				post.setPostAvailable(rs.getInt(6));
+				return post;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;	
+	}
 
 }
