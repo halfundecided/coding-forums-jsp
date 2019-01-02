@@ -83,14 +83,35 @@
 					</tr>
 				</thead>
 				<tbody>
+					<%
+						postDAO postDAO = new postDAO();
+						ArrayList<post> list = postDAO.getList(pageNumber);
+						for(int i = 0; i < list.size(); i++) {
+					%>
 					<tr>
-						<td>1</td>
-						<td>Test post</td>
-						<td>halfundecided</td>
-						<td>2019-01-02</td>
+						<td><%= list.get(i).getPostID() %></td>
+						<td><a href = "view.jsp?postID=<%= list.get(i).getPostID() %>"><%= list.get(i).getPostTitle() %></a></td>
+						<td><%= list.get(i).getUserID() %></td>
+						<td><%= list.get(i).getPostDate().substring(0, 11) + list.get(i).getPostDate().substring(11, 13) + ":" + list.get(i).getPostDate().substring(14, 16) %></td>
 					</tr>
+
+					<% 
+						}
+					%>
+				
 				</tbody>
 			</table>
+			<%
+				if(pageNumber != 1) {	
+			%>
+				<a href="forum-main.jsp?pageNumber=<%=pageNumber -1%>" class="btn btn-success btn-arrow-left">Previous</a>
+			<%
+				} if (postDAO.nextPage(pageNumber + 1)) {
+			%>
+				<a href="forum-main.jsp?pageNumber=<%=pageNumber -1%>" class="btn btn-success btn-arrow-left">Next</a>
+			<% 
+				}
+			%>
 			<a href="write-post.jsp" class="btn btn-outline-secondary">Write</a>
 			
 		</div>
