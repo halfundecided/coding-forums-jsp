@@ -130,5 +130,31 @@ public class postDAO {
 		}
 		return null;	
 	}
+	
+	public int update(int postID, String postTitle, String postContent) {
+		String SQL = "UPDATE post SET postTitle = ?, postContent = ? WHERE postID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, postTitle);
+			pstmt.setString(2, postContent);
+			pstmt.setInt(3, postID);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // database error
+	}
+	
+	public int delete(int postID) {
+		String SQL = "UPDATE post SET postAvailable = 0 WHERE postID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, postID);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // database error
+	}
 
 }
