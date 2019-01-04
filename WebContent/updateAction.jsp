@@ -57,7 +57,7 @@
 				if (result == -1) {
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
-					script.println("alert('posting failure')");
+					script.println("alert('updating failure')");
 					script.println("history.back()");
 					script.println("</script>");
 				} else {

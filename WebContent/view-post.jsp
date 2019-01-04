@@ -110,7 +110,7 @@
 				if(userID != null && userID.equals(post.getUserID())) {
 			%> 
 					<a href="update-post.jsp?postID=<%= postID %>" class="btn btn=secondary">Edit</a>
-					<a href="deleteAction.jsp?postID=<%= postID %>" class="btn btn=secondary">Delete</a>
+					<a onclick="return confirm('really want to delete?')" href="deleteAction.jsp?postID=<%= postID %>" class="btn btn=secondary">Delete</a>
 			<%
 				}
 			%>

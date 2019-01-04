@@ -45,11 +45,11 @@
 			script.println("</script>");
 		} else {
 				postDAO postDAO = new postDAO();
-				int result = postDAO.update(postID, request.getParameter("postTitle"), request.getParameter("postContent"));
+				int result = postDAO.delete(postID);
 				if (result == -1) {
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
-					script.println("alert('posting failure')");
+					script.println("alert('deleting failure')");
 					script.println("history.back()");
 					script.println("</script>");
 				} else {
