@@ -19,8 +19,7 @@
 		}
 		int postID = 0;
 		if (request.getParameter("postID") != null) {
-			postID = Integer.parseInt(request.getParameter("postID"));
-			
+			postID = Integer.parseInt(request.getParameter("postID"));		
 		}
 		if (postID == 0) {
 			PrintWriter script = response.getWriter();
@@ -80,41 +79,48 @@
 	<!-- dash board -->
 	<div class="container">
 		<div class="row">
-			<form method="post" action="writeAction.jsp">
-				<table class="table table-hover style="">
-					<thead>
-						<tr>
-							<th colspan="2" scope="col" style="">Write your post</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><input type="text" class="form-control" placeholder="Title" name="postTitle" maxlength="50"></td>
-						</tr>
-						<tr>
-							<td><textarea class="form-control" placeholder="Content" name="postContent" maxlength="4096" style="height: 350px;"></textarea></td>
-						</tr>
-					</tbody>
-					</table>
-				<input type="submit" class="btn btn-outline-secondary" value="Post">	
-			</form>		
+			<table class="table table-hover style="">
+				<thead>
+					<tr>
+						<th colspan="3" scope="col" style="">View the post</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="width: 20%;">Title</td>
+						<td colspan="2"><%= post.getPostTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></td>
+					</tr>
+					<tr>
+						<td>Author</td>
+						<td colspan="2"><%= post.getUserID() %></td>
+					</tr>
+					<tr>
+						<td>Date</td>
+						<td colspan="2"><%= post.getPostDate().substring(0, 11) + post.getPostDate().substring(11, 13) + ":" + post.getPostDate().substring(14, 16) %></td>
+					</tr>
+					<tr>
+						<td>Content</td>
+						<td colspan="2" style="min-height: 200px; text-align: left;"><%= post.getPostContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></td>
+					</tr>
+				</tbody>
+			</table>
+			<a href="forum-main.jsp" class="btn btn-secondary">list</a>
+			<!-- if author -->
+			<%
+				if(userID != null && userID.equals(post.getUserID())) {
+			%> 
+					<a href="update.jsp?postID=<%= postID %>" class="btn btn=secondary">Edit</a>
+					<a href="deleteAction.jsp?postID=<%= postID %>" class="btn btn=secondary">Delete</a>
+			<%
+				}
+			%>
+			<input type="submit" class="btn btn-outline-secondary" value="Post">
 		</div>
 	</div>
-	
+
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-</body>
-</html><%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
 </body>
 </html>

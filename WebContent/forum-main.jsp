@@ -90,7 +90,7 @@
 					%>
 					<tr>
 						<td><%= list.get(i).getPostID() %></td>
-						<td><a href = "view.jsp?postID=<%= list.get(i).getPostID() %>"><%= list.get(i).getPostTitle() %></a></td>
+						<td><a href = "view-post.jsp?postID=<%= list.get(i).getPostID() %>"><%= list.get(i).getPostTitle() %></a></td>
 						<td><%= list.get(i).getUserID() %></td>
 						<td><%= list.get(i).getPostDate().substring(0, 11) + list.get(i).getPostDate().substring(11, 13) + ":" + list.get(i).getPostDate().substring(14, 16) %></td>
 					</tr>
