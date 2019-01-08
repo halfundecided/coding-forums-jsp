@@ -108,20 +108,20 @@ public class QuestionDAO {
 		return false;		
 	}
 	
-	public question getQuestion(int questionID) {
-		String SQL = "SELECT * FROM questions WHERE postID = ?";
+	public Question getQuestion(int questionID) {
+		String SQL = "SELECT * FROM questions WHERE questionID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, postID);
+			pstmt.setInt(1, questionID);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				post post = new post();
-				post.setPostID(rs.getInt(1));
-				post.setPostTitle(rs.getString(2));
-				post.setUserID(rs.getString(3));
-				post.setPostDate(rs.getString(4));
-				post.setPostContent(rs.getString(5));
-				post.setPostAvailable(rs.getInt(6));
+				Question question = new Question();
+				question.setQuestionID(rs.getInt(1));
+				question.setQuestionTitle(rs.getString(2));
+				question.setQuestionDate(rs.getString(3));
+				question.setQuestionCategory(rs.getString(4));
+				question.setQuestionContent(rs.getString(5));
+				question.setQuestionAvailable(rs.getInt(6));
 				return question;
 			}
 		} catch (Exception e) {
@@ -130,13 +130,14 @@ public class QuestionDAO {
 		return null;	
 	}
 	
-	public int update(int postID, String postTitle, String postContent) {
-		String SQL = "UPDATE post SET postTitle = ?, postContent = ? WHERE postID = ?";
+	public int update(int questionID, String questionTitle, String questionCategory, String questionContent) {
+		String SQL = "UPDATE questions SET questionTitle = ?, questionCategory = ?, questionContent = ? WHERE questionID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, postTitle);
-			pstmt.setString(2, postContent);
-			pstmt.setInt(3, postID);
+			pstmt.setString(1, questionTitle);
+			pstmt.setString(2, questionCategory);
+			pstmt.setString(3, questionContent);
+			pstmt.setInt(4, questionID);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -144,11 +145,11 @@ public class QuestionDAO {
 		return -1; // database error
 	}
 	
-	public int delete(int postID) {
-		String SQL = "UPDATE post SET postAvailable = 0 WHERE postID = ?";
+	public int delete(int questionID) {
+		String SQL = "UPDATE questions SET questionAvailable = 0 WHERE questionID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, postID);
+			pstmt.setInt(1, questionID);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

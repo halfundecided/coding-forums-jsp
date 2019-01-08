@@ -132,7 +132,7 @@ public class postDAO {
 	}
 	
 	public int update(int postID, String postTitle, String postContent) {
-		String SQL = "UPDATE post SET postTitle = ?, postContent = ? WHERE postID = ?";
+		String SQL = "UPDATE posts SET postTitle = ?, postContent = ? WHERE postID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, postTitle);
@@ -146,7 +146,7 @@ public class postDAO {
 	}
 	
 	public int delete(int postID) {
-		String SQL = "UPDATE post SET postAvailable = 0 WHERE postID = ?";
+		String SQL = "UPDATE posts SET postAvailable = 0 WHERE postID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, postID);
