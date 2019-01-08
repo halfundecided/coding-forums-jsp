@@ -53,16 +53,17 @@ public class QuestionDAO {
 		return -1; // database error
 	}
 	
-	public int write(String questionTitle, String questionContent, String questionCategory) {
-		String SQL = "INSERT INTO posts VALUES (?, ?, ?, ?, ?, ?, ?)";
+	public int write(String userID, String questionTitle, String questionCategory, String questionContent) {
+		String SQL = "INSERT INTO questions VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext());
-			pstmt.setString(2, questionTitle);
-			pstmt.setString(3, getDate());
-			pstmt.setString(4, questionCategory);
-			pstmt.setString(5, questionContent);
-			pstmt.setInt(6, 1);
+			pstmt.setString(2, userID);
+			pstmt.setString(3, questionTitle);
+			pstmt.setString(4, getDate());
+			pstmt.setString(5, questionCategory);
+			pstmt.setString(6, questionContent);
+			pstmt.setInt(7, 1);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,11 +81,12 @@ public class QuestionDAO {
 			while (rs.next()) {
 				Question question = new Question();
 				question.setQuestionID(rs.getInt(1));
-				question.setQuestionTitle(rs.getString(2));
-				question.setQuestionDate(rs.getString(3));
-				question.setQuestionCategory(rs.getString(4));
-				question.setQuestionContent(rs.getString(5));
-				question.setQuestionAvailable(rs.getInt(6));
+				question.setUserID(rs.getString(2));
+				question.setQuestionTitle(rs.getString(3));
+				question.setQuestionDate(rs.getString(4));
+				question.setQuestionCategory(rs.getString(5));
+				question.setQuestionContent(rs.getString(6));
+				question.setQuestionAvailable(rs.getInt(7));
 				list.add(question);
 			}
 		} catch (Exception e) {
@@ -117,11 +119,12 @@ public class QuestionDAO {
 			if (rs.next()) {
 				Question question = new Question();
 				question.setQuestionID(rs.getInt(1));
-				question.setQuestionTitle(rs.getString(2));
-				question.setQuestionDate(rs.getString(3));
-				question.setQuestionCategory(rs.getString(4));
-				question.setQuestionContent(rs.getString(5));
-				question.setQuestionAvailable(rs.getInt(6));
+				question.setUserID(rs.getString(2));
+				question.setQuestionTitle(rs.getString(3));
+				question.setQuestionDate(rs.getString(4));
+				question.setQuestionCategory(rs.getString(5));
+				question.setQuestionContent(rs.getString(6));
+				question.setQuestionAvailable(rs.getInt(7));
 				return question;
 			}
 		} catch (Exception e) {

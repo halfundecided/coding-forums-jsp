@@ -2,6 +2,7 @@ package question;
 
 public class Question {
 	private int questionID;
+	private String userID;
 	private String questionTitle;
 	private String questionDate; 
 	private String questionCategory;
@@ -12,6 +13,12 @@ public class Question {
 	}
 	public void setQuestionID(int questionID) {
 		this.questionID = questionID;
+	}
+	public String getUserID() {
+		return userID;
+	}
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
 	public String getQuestionTitle() {
 		return questionTitle;

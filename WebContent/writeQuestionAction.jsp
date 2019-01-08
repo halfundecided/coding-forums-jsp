@@ -28,19 +28,19 @@
 			script.println("location.href = 'login.jsp'");
 			script.println("</script>");
 		} else {
-			if (post.getPostTitle() == null || post.getPostContent() == null) {
+			if (question.getQuestionTitle() == null || question.getQuestionCategory() == null || question.getQuestionContent() == null) {
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("alert('Insert all informations')");
 				script.println("history.back()");
 				script.println("</script>");
 			} else {
-				postDAO postDAO = new postDAO();
-				int result = postDAO.write(post.getPostTitle(), userID, post.getPostContent());
+				QuestionDAO QuestionDAO = new QuestionDAO();
+				int result = QuestionDAO.write(question.getUserID(), question.getQuestionTitle(), question.getQuestionCategory(), question.getQuestionContent());
 				if (result == -1) {
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
-					script.println("alert('posting failure')");
+					script.println("alert('question uploading failure')");
 					script.println("history.back()");
 					script.println("</script>");
 				} else {

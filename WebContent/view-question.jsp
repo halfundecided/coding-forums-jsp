@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="question.QuestionDAO" %>
 <%@ page import="question.Question" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="question.QuestionDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,11 +17,18 @@
 		if(session.getAttribute("userID") != null) {
 			userID = (String) session.getAttribute("userID");
 		}
-		// page number
-		int pageNumber = 1;
-		if (request.getParameter("pageNumber") != null) {
-			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		int questionID = 0;
+		if (request.getParameter("questionID") != null) {
+			questionID = Integer.parseInt(request.getParameter("questionID"));		
 		}
+		if (questionID == 0) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('invalid post')");
+			script.println("location.href = 'forum-main.jsp'");
+			script.println("</script>");
+		}
+		Question question = new QuestionDAO().getQuestion(questionID);
 	%>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="main.jsp">Coding Forums</a>
@@ -43,7 +49,7 @@
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#"
 					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false"> Get-In </a>
+					aria-haspopup="true" aria-expanded="false"> Get In </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item" href="login.jsp">Log In</a> 
 						<a class="dropdown-item" href="join.jsp">Sign Up</a>
@@ -74,50 +80,40 @@
 	<div class="container">
 		<div class="row">
 			<table class="table table-hover style="">
-<!-- 				<thead>
+				<thead>
 					<tr>
-						<th scope="col" style="">#</th>
-						<th scope="col" style="">Title</th>
-						<th scope="col" style="">Author</th>
-						<th scope="col" style="">Date</th>
+						<th colspan="3" scope="col" style="">Problem</th>
 					</tr>
-				</thead> -->
+				</thead>
 				<tbody>
-					<%
-						QuestionDAO QuestionDAO = new QuestionDAO();
-						ArrayList<Question> list = QuestionDAO.getList(pageNumber);
-						for(int i = 0; i < list.size(); i++) {
-					%>
 					<tr>
-						<td><%= list.get(i).getQuestionID() %></td>
-						<td><a href = "view-question.jsp?questionID=<%= list.get(i).getQuestionID() %>"><%= list.get(i).getQuestionTitle() %></a></td>
-						<%-- <td><%= list.get(i).getUserID() %></td> --%>
-						<td><%= list.get(i).getQuestionDate().substring(0, 11) + list.get(i).getQuestionDate().substring(11, 13) + ":" + list.get(i).getQuestionDate().substring(14, 16) %></td>
+						<td style="width: 20%;">Title</td>
+						<td colspan="2"><%= question.getQuestionTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></td>
 					</tr>
-
-					<% 
-						}
-					%>
-				
+					<tr>
+						<td>Category</td>
+						<td colspan="2"><%= question.getQuestionCategory() %></td>
+					</tr>
+					<tr>
+						<td>Content</td>
+						<td colspan="2" style="min-height: 200px; text-align: left;"><%= question.getQuestionContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></td>
+					</tr>
 				</tbody>
 			</table>
+			<a href="forum-main.jsp" class="btn btn-secondary">list</a>
+			<!-- if author -->
 			<%
-				if(pageNumber != 1) {	
-			%>
-				<a href="forum-main.jsp?pageNumber=<%=pageNumber -1%>" class="btn btn-success btn-arrow-left">Previous</a>
+				if(userID != null && userID.equals(question.getUserID())) {
+			%> 
+					<a href="update-question.jsp?questionID=<%= questionID %>" class="btn btn=secondary">Edit</a>
+					<a onclick="return confirm('really want to delete?')" href="deleteQuestionAction.jsp?questionID=<%= questionID %>" class="btn btn=secondary">Delete</a>
 			<%
-				} if (QuestionDAO.nextPage(pageNumber + 1)) {
-			%>
-				<a href="forum-main.jsp?pageNumber=<%=pageNumber -1%>" class="btn btn-success btn-arrow-left">Next</a>
-			<% 
 				}
 			%>
-			<a href="write-question.jsp" class="btn btn-outline-secondary">Upload A Question</a>
-			
+			<input type="submit" class="btn btn-outline-secondary" value="Post">
 		</div>
 	</div>
-	
-	
+
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
