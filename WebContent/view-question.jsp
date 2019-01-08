@@ -110,7 +110,7 @@
 			<%
 				}
 			%>
-			<input type="submit" class="btn btn-outline-secondary" value="Post">
+			<a href="write-solution.jsp" class="btn btn-outline-secondary">Write Your Solution</a>
 		</div>
 	</div>
 
