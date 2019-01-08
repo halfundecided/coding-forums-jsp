@@ -82,7 +82,7 @@
 			<table class="table table-hover style="">
 				<thead>
 					<tr>
-						<th colspan="3" scope="col" style="">Problem</th>
+						<th colspan="2" scope="col" style="">Problem</th>
 					</tr>
 				</thead>
 				<tbody>
